@@ -1,48 +1,9 @@
+<?variable-resolver class="org.zkoss.zkplus.cdi.DelegatingVariableResolver" ?>
+<zk>
+<label value="${empty hello ? hello.sayHello('Ian') : hello.sayHello('dennis')}"/>
 
-<window apply="org.zkoss.bind.BindComposer" 
-	viewModel="@id('vm') @init('idv.zanyking.javatwo.UserVM')">
-	
-	
-	<textbox value="@bind(vm.user.firstName)"/>	
-	<textbox value="@bind(vm.user.lastName)"/>
-	
-	
-	Hello, <label value="@load(vm.user.firstName)"/>!
+<zscript><![CDATA[
+	System.out.println("befor after Compose of mvvm_simple.zul");
+]]></zscript>
 
-
-
-
-
-
-
-
-
-	<grid model="@bind(vm.cities)" width="400px">
-		<columns>
-			<column width="30px"/>
-			<column label="name" width="100px"/>
-			<column label="description"/>
-		</columns>
-		<template name="model" var="city" status="status">
-			<row>
-				<label value="@bind(status.index)"/>
-				<label value="@bind(city.name)"/>
-				<label value="@bind(city.description)"/>
-			</row>
-		</template>
-	</grid>	
-
-	<!-- 	
-	<vlayout children="@load(vm.cities)">
-		<template name="children" var="city">
-			<label value="@load(city.name)" style="padding-left:10px"/>
-			<label value="@load(cityStatus.index)" />
-		</template>
-	</vlayout>
-	 -->
-</window>
-
-
-
-
-
+</zk>

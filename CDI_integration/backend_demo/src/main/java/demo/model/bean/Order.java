@@ -42,15 +42,14 @@ public class Order {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private long userId;
 	private String status = PROCESSING;
 	private String description;
 	private Float adjust;
 
-	@OneToMany
-	@JoinTable(name = "OrderedItems", joinColumns = @JoinColumn(name = "orderid", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "orderitemid", referencedColumnName = "id"))
+	@OneToMany(mappedBy="orderId",targetEntity=OrderItem.class)
 	@LazyCollection(value = LazyCollectionOption.FALSE)
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 

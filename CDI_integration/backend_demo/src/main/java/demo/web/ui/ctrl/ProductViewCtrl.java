@@ -6,14 +6,16 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 
-import demo.model.DAOs;
 import demo.model.bean.Product;
 import demo.web.OverQuantityException;
+import demo.web.model.ProductManager;
 
 /**
  * @author zkessentials store
@@ -22,8 +24,12 @@ import demo.web.OverQuantityException;
  *         index.zul
  * 
  */
+@VariableResolver(org.zkoss.zkplus.cdi.DelegatingVariableResolver.class)
 public class ProductViewCtrl extends SelectorComposer<Div> {
 
+	
+	@WireVariable
+	private ProductManager productManager;
 	/**
 	 * 
 	 */
@@ -36,7 +42,7 @@ public class ProductViewCtrl extends SelectorComposer<Div> {
 	public void doAfterCompose(Div comp) throws Exception {
 		super.doAfterCompose(comp);
 
-		List<Product> prods = DAOs.getProductDAO().findAllAvailable();
+		List<Product> prods = productManager.findAllAvailable();
 
 		ListModelList<Product> prodModel = new ListModelList<Product>(prods);
 		prodGrid.setModel(prodModel);

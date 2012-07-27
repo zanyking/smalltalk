@@ -1,0 +1,29 @@
+<?component name="productOrder" class="demo.web.ui.ctrl.ProductOrder" ?>
+<window title="all products" border="normal" width="100%" height="900px">
+
+	<div id="PrdoDiv" apply="demo.web.ui.ctrl.ProductViewCtrl">
+		<grid id="prodGrid">
+			<columns sizable="true">
+				<column image="/image/Bullet-10x10.png" align="center"
+					width="100px" />
+				<column label="Name" width="100px" />
+				<column label="Price" width="50px" />
+				<column label="Quantity" width="50px" />
+				<column label="Arrive Date" width="110px" />
+				<column label="operation" />
+			</columns>
+			<template name="model">
+				<row value="${each}">
+					<image height="70px" width="70px" src="${each.imgPath}" />
+					<label value="${each.name}" />
+					<label value="${each.price}" />
+					<label value="${each.quantity}" />
+					<label value="${each.createDate}" />
+					<productOrder maximumQuantity="${each.quantity}"
+						product="${each}" />
+				</row>
+			</template>
+		</grid>
+	</div>
+
+</window>

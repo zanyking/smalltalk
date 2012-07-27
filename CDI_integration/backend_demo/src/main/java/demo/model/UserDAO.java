@@ -1,11 +1,11 @@
 package demo.model;
 
-import java.util.Collections;
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -13,8 +13,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
-import demo.model.bean.Product;
 import demo.model.bean.User;
 
 /**
@@ -24,17 +22,9 @@ import demo.model.bean.User;
  *         storage system
  * 
  */
-public class UserDAO {
-//	private static final Map<Long, User> dbModel = Collections
-//			.synchronizedMap(new HashMap<Long, User>());
-//	public static final User USER1 = new User(1L, "ian", "ian", "user");
-//	public static final User USER2 = new User(2L, "zk", "zk", "admin");
-//	public static final User USER3 = new User(3L, "tom", "tom", "user");
-//	static {
-//		dbModel.put(USER1.getId(), USER1);
-//		dbModel.put(USER2.getId(), USER2);
-//		dbModel.put(USER3.getId(), USER3);
-//	}
+@Dependent
+@Named(value = "userDao")
+public class UserDAO{
 	
 	
 	@Inject

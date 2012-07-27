@@ -2,6 +2,7 @@ package demo.model;
 
 import static demo.model.bean.Order.CANCELED;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import org.seamframework.tx.Transactional;
@@ -22,6 +22,7 @@ import demo.model.bean.CartItem;
 import demo.model.bean.Order;
 import demo.model.bean.OrderItem;
 import demo.model.bean.Product;
+import demo.model.bean.User;
 
 /**
  * @author zkessentials store
@@ -45,7 +46,12 @@ public class OrderDAO {
 		List<Order> orders = query.getResultList();
 		return orders;
 	}
-
+	
+	public List<Order> findByUser(User user) {
+		if(user==null)return new ArrayList<Order>();
+		return findByUser(user.getId());
+	}
+	
 	public List<Order> findByUser(long userId) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
@@ -60,36 +66,40 @@ public class OrderDAO {
 	}
 
 	
-	private void add(Order order) {
-		em.persist(order);
-	}
+	public Order createOrder(User user, List<CartItem> items, String description) {
 
-	@Transactional
-	public Order createOrder(long userId, List<CartItem> items,
-			String description) {
-
-		Order order = new Order(null, userId, Order.PROCESSING, new Date(),
-				description);
-
-		this.add(order);
-
-		for (CartItem item : items) {
-			Product prod = item.getProduct();
-
-			OrderItem oItem = new OrderItem(null, prod.getId(), prod.getName(),
-					prod.getPrice(), item.getAmount());
-
-			em.persist(oItem);
-			order.addItem(oItem);
+		Order order = new Order(
+				null, user.getId(), Order.PROCESSING, new Date(), description);
+		em.getTransaction().begin();
+		try{
+			em.persist(order);	
+		}finally{
+			em.getTransaction().commit();
 		}
-
-		em.persist(order);
-
+		
+		System.out.println("createOrder persised: "+order+" id="+order.getId());
+		em.getTransaction().begin();
+		try{
+			for (CartItem item : items) {
+				Product prod = item.getProduct();
+	
+				OrderItem oItem = new OrderItem(null, order.getId(), prod.getId(), prod.getName(),
+						prod.getPrice(), item.getAmount());
+				
+				em.persist(oItem);
+				System.out.println("oItem persised: "+oItem+" id="+oItem.getId());
+				order.addItem(oItem);
+			}
+		}finally{
+			em.getTransaction().commit();
+		}
 
 		return order;
 	}
+	
+	
 
-	public Order findById(long orderId) {
+	public Order findById(Long orderId) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
 
@@ -102,8 +112,8 @@ public class OrderDAO {
 	}
 	
 	@Transactional
-	public Order cancelOrder(long orderId) {
-		Order order = findById(orderId);
+	public Order cancelOrder(Order order) {
+		if(order==null)return null;
 		order.setStatus(CANCELED);
 		em.persist(order);
 		return order;

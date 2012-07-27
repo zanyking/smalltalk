@@ -14,8 +14,6 @@ import javax.persistence.criteria.Root;
 
 import org.seamframework.tx.Transactional;
 
-
-import demo.model.bean.Order;
 import demo.model.bean.Product;
 
 /**
@@ -26,7 +24,7 @@ import demo.model.bean.Product;
  * 
  */
 @Dependent
-@Named(value = "productDAO")
+@Named(value = "productDao")
 public class ProductDAO {
 
 	@Inject
@@ -76,13 +74,13 @@ public class ProductDAO {
         return product;
 	}
 
+	@Transactional
 	public Product putOn(long productId) {
 		Product product = findById(productId);
         if(product != null) {
             product.setAvailable(true);
             em.persist(product);
         }
-
         return product;
 	}
 

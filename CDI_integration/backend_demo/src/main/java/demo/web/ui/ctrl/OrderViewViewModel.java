@@ -2,14 +2,23 @@ package demo.web.ui.ctrl;
 
 import java.util.List;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
 
-import demo.model.DAOs;
+import demo.model.bean.CartItem;
 import demo.model.bean.Order;
+import demo.web.model.UserOrderManager;
 
+@VariableResolver(org.zkoss.zkplus.cdi.DelegatingVariableResolver.class)
 public class OrderViewViewModel  {
+	
+	@WireVariable
+	private UserOrderManager userOrderManager;
+	
 	private Order selectedItem;
 
 	public Order getSelectedItem() {
@@ -22,8 +31,7 @@ public class OrderViewViewModel  {
 	}
 	
 	public List<Order> getOrders() {
-		List<Order> orders = DAOs.getOrderDAO().findByUser(UserUtils.getCurrentUserId());
-		return orders;
+		return userOrderManager.findAll();
 	}
 	
 	@Command
@@ -32,14 +40,16 @@ public class OrderViewViewModel  {
 		if (getSelectedItem() == null) {
 			return;
 		}
-		
-		DAOs.getOrderDAO().cancelOrder(getSelectedItem().getId());
+		userOrderManager.cancelOrder(getSelectedItem());
 		setSelectedItem(null);
 	}
 	
+	
 	@GlobalCommand
 	@NotifyChange("orders")
-	public void updateOrders() {
-		//no post processing needed
+	public void submitNewOrder( 
+			 @BindingParam("cartItems")List<CartItem> cartItems 
+			,@BindingParam("orderNote") String orderNote){
+		userOrderManager.createOrder( cartItems, orderNote);
 	}
 }

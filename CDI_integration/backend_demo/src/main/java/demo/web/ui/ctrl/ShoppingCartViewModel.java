@@ -1,13 +1,14 @@
 package demo.web.ui.ctrl;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 
-import demo.model.DAOs;
 import demo.model.bean.CartItem;
 import demo.web.ShoppingCart;
 
@@ -15,6 +16,7 @@ public class ShoppingCartViewModel {
 	
 	private String orderNote;
 	private CartItem selectedItem;
+	
 	
 	public String getOrderNote() {
 		return orderNote;
@@ -42,20 +44,24 @@ public class ShoppingCartViewModel {
 	
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart", "orderNote"})
-	public void submitOrder() {
-		DAOs.getOrderDAO().createOrder(UserUtils.getCurrentUserId(), getCartItems(), getOrderNote());
-		clearOrders();
+	public void submit() {
+		HashMap<String, Object> args = new HashMap<String, Object>();
+		args.put("cartItems", getCartItems());
+		args.put("orderNote", getOrderNote());
+		BindUtils.postGlobalCommand(null, null, "submitNewOrder", args);
+		clearShoppingCart();
+		
 	}
 	
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
-	public void clearOrders() {
+	public void clearShoppingCart() {
 		getShoppingCart().clear();
 	}
 	
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
-	public void deleteOrder(@BindingParam("cartItem") CartItem cartItem) {
+	public void removeCartitem(@BindingParam("cartItem") CartItem cartItem) {
 		getShoppingCart().remove(cartItem.getProduct().getId());
 	}
 	

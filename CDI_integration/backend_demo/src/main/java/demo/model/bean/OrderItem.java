@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author zkessentials store
@@ -12,11 +13,13 @@ import javax.persistence.Id;
  * 
  */
 @Entity
+@Table(name="OrderedItems")
 public class OrderItem {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+	private long orderId;
 	private long prodId;
 
 	private String name;
@@ -26,11 +29,11 @@ public class OrderItem {
 	public OrderItem() {
 	}
 
-	public OrderItem(Long id, long prodId, String name,
+	public OrderItem(Long id, Long orderId, long prodId, String name,
 			float price, int quantity) {
 		super();
-		if (id != null)
-			this.id = id;
+		if (id != null) this.id = id;
+		if (orderId != null)this.orderId = orderId;
 		this.prodId = prodId;
 		this.name = name;
 		this.price = price;
@@ -75,6 +78,14 @@ public class OrderItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
 	}
 
 }

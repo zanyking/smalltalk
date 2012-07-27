@@ -9,12 +9,12 @@ insert into products (id, productname, createDate, price, quantity, available, i
 insert into products (id, productname, createDate, price, quantity, available, imgPath) values (5, 'Milk', CURRENT_TIMESTAMP, 3.1, 71, true, '/image/milk.jpg');
 insert into products (id, productname, createDate, price, quantity, available, imgPath) values (6, 'Coffee Powder', CURRENT_TIMESTAMP, 10.4, 59, true, '/image/coffee.jpg');
 
+delete from OrderedItems;
 delete from orders;
 insert into orders (id, userId, status, createDate, description) values (1, 1, 'processing', CURRENT_TIMESTAMP, ' nobody at home in day time');
 
-delete from OrderedItems;
-insert into OrderedItems (id, prodId, name, price, quantity) values (null, 1, 'Cookies', 4.0, 10);
-insert into OrderedItems (id, prodId, name, price, quantity) values (null, 2, 'Toast', 3.1, 5);
+insert into OrderedItems (id, orderId, prodid, name, price, quantity) values (null, 1, 1, 'Cookies', 4.0, 10);
+insert into OrderedItems (id, orderId, prodid, name, price, quantity) values (null, 1, 2, 'Toast', 3.1, 5);
 
 
 

@@ -28,16 +28,20 @@ public class EntityTransactionInterceptor implements Serializable {
 		boolean act = !em.getTransaction().isActive();
 		if (act) {
 			em.getTransaction().begin();
+			System.out.println(">>> Transaction BEGIN");
 		}
 		try {
 			Object result = ic.proceed();
 			if (act) {
 				em.getTransaction().commit();
+				System.out.println(">>> Transaction COMMIT");
 			}
 			return result;
 		} catch (Exception e) {
+			e.printStackTrace();
 			if (act) {
 				em.getTransaction().rollback();
+				System.out.println(">>> Transaction ROLLBACK ");
 			}
 			throw e;
 		}

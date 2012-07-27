@@ -1,12 +1,12 @@
 /**
  * 
  */
-package demo.example;
+package demo.model;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -17,10 +17,10 @@ import javax.persistence.PersistenceContext;
  * 
  */
 @Named(value = "init")
-@ApplicationScoped
+@Dependent
 public class Init implements Serializable {
 	@Produces
-	@ApplicationScoped
-	@PersistenceContext(unitName = "foo")
+	@Dependent
+	@PersistenceContext(unitName = "breakfast")
 	EntityManager em;
 }
