@@ -14,13 +14,14 @@ import javax.persistence.EntityManager;
  * 
  * @author Gavin King
  */
-@Transactional
 @Interceptor
+@Transactional
 public class EntityTransactionInterceptor implements Serializable {
-
-	private @Inject
+	private static final long serialVersionUID = 4422550967351153385L;
+	
+	@Inject
 	@Any
-	EntityManager em;
+	private EntityManager em;
 
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ic) throws Exception {
@@ -40,5 +41,9 @@ public class EntityTransactionInterceptor implements Serializable {
 			}
 			throw e;
 		}
+	}
+	
+	public void doInit(){
+		
 	}
 }
