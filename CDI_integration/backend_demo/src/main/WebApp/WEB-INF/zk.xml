@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- zk.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Sun Mar 26 16:29:07     2006, Created by tomyeh
+
+Copyright (C) 2006 Potix Corporation. All Rights Reserved.
+-->
+
+<zk>
+	<preference>
+		<name>org.zkoss.zk.ui.WebApp.name</name>
+		<value>ZK Java Two Demo</value>
+	</preference>
+
+	<session-config>
+		<timeout-uri></timeout-uri>
+	</session-config>
+
+</zk>

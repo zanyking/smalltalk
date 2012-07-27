@@ -1,0 +1,17 @@
+
+<window width="300px" title="Hello!" border="normal">
+	
+	
+	<textbox value="@bind(vm.user.firstName)"/>	
+	<textbox value="@bind(vm.user.lastName)"/>
+	
+	
+	Hello, <label value="@load(vm.user.firstName)"/>!
+
+
+</window>
+
+
+
+
+
