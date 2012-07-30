@@ -1,49 +1,59 @@
 package demo.web;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import demo.model.CartitemDAO;
 import demo.model.bean.CartItem;
 import demo.model.bean.Product;
+import demo.web.model.UserCredentialManager;
 
 /**
- * @author zkessentials store
+ * @author Ian Y.T Tsai(zanyking)
  * 
  *         This class provides a representation of a shopping cart
  * 
  */
+@Named("shoppingCart")
+@SessionScoped
 public class ShoppingCart {
 
-	private Map<Long, CartItem> items = Collections
-			.synchronizedMap(new LinkedHashMap<Long, CartItem>());
 
+	
+	@Inject
+	@RequestScoped
+	private CartitemDAO cartitemDAO;
+	
+	@Inject
+	private UserCredentialManager userCredentialManager;
+	
+	private Long getUserId(){
+		return userCredentialManager.getUser().getId();
+	}
 	public List<CartItem> getItems() {
-		return new ArrayList<CartItem>(items.values());
+		
+		return cartitemDAO.findByUser(getUserId());
 	}
 
 	public CartItem getItem(long prodId) {
-		return items.get(prodId);
+		return cartitemDAO.findByProduct(getUserId(), prodId);
 	}
 
-	private void add(CartItem item) {
-		items.put(item.getProduct().getId(), item);
-	}
 
 	public void add(Product prod, int amount)
 			throws OverQuantityException {
 		
-		CartItem item = this.getItem(prod.getId());
-		validate(item, prod, amount);
-		if (item == null) {
-			this.add(item = new CartItem(prod));
-			item.add(amount);
-		} else {
-			item.add(amount);
+		CartItem cItem = this.getItem(prod.getId());
+		validate(cItem, prod, amount);
+		if (cItem == null) {
+			cItem = new CartItem(getUserId(), prod);
 		}
-		
+		cItem.add(amount);
+		cartitemDAO.insertUpdate(cItem);
 	}
 
 	private static void validate(CartItem item, Product prod, int amount)
@@ -57,17 +67,17 @@ public class ShoppingCart {
 		}
 	}
 
-	public void remove(long id) {
-		items.remove(id);
+	public void remove(CartItem cartItem) {
+		cartitemDAO.delete(cartItem);
 	}
 
 	public void clear() {
-		items.clear();
+		cartitemDAO.clear(getUserId());
 	}
 
 	public float getTotalPrice() {
 		float subTotal = 0;
-		for (CartItem item : items.values()) {
+		for (CartItem item : getItems()) {
 			subTotal += item.getProduct().getPrice() * item.getAmount();
 		}
 		return subTotal;

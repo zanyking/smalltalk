@@ -59,7 +59,8 @@
 								label="@load(cartItem.product.price)" />
 							<listcell label="@load(cartItem.amount)"  />
 							<listcell
-								label="@load(cartItem.product.price * cartItem.amount)"
+								label="@load(cartItem.product.price * cartItem.amount) 
+								@converter('formattedNumber', format='###,##0.0#')"
 								style="word-wrap: word-break" />
 							<listcell>
 								<button
@@ -70,7 +71,8 @@
 					</template>
 					<listfoot>
 						<listfooter span="2" id="subtotalFooter"
-							label="@load(vm.shoppingCart.totalPrice)">
+							label="@load(vm.shoppingCart.totalPrice) 
+							@converter('formattedNumber', format='###,##0.0#')">
 						</listfooter>
 						<listfooter>
 							<button id="submitOrderBtn" label="submit"
@@ -115,7 +117,8 @@
 									<listcell
 										label="@load(order.description)" />
 									<listcell
-										label="@load(order.total)" />
+										label="@load(order.total) 
+										@converter('formattedNumber', format='###,##0.0#')" />
 								</listitem>
 							</template>
 						</listbox>
@@ -142,9 +145,11 @@
 									<label
 										value="@load(orderItem.quantity)" />
 									<label
-										value="@load(orderItem.price)" />
+										value="@load(orderItem.price) 
+										@converter('formattedNumber', format='###,##0.0#')" />
 									<label
-										value="@load(orderItem) @converter('demo.web.ui.OrderItemSubTotalTypeConverter')"
+										value="@load(orderItem) 
+										@converter('demo.web.ui.OrderItemSubTotalTypeConverter')"
 										maxlength="8" />
 								</row>
 							</template>

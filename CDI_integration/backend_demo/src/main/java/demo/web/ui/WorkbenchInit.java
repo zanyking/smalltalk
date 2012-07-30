@@ -18,11 +18,11 @@ import demo.web.model.UserCredentialManager;
  *         redirects accordingly if no user credentials are found
  * 
  */
-@VariableResolver(DelegatingVariableResolver.class)
+//@VariableResolver(DelegatingVariableResolver.class)
 public class WorkbenchInit implements Initiator {
 
 	
-	@WireVariable
+	//@WireVariable
 	private UserCredentialManager userCredentialManager;
 	/*
 	 * Invoked when the ZK Parser starts

@@ -11,7 +11,11 @@ import org.zkoss.bind.annotation.NotifyChange;
 
 import demo.model.bean.CartItem;
 import demo.web.ShoppingCart;
-
+/**
+ * 
+ * @author Ian Y.T Tsai(zanyking)
+ *
+ */
 public class ShoppingCartViewModel {
 	
 	private String orderNote;
@@ -50,7 +54,6 @@ public class ShoppingCartViewModel {
 		args.put("orderNote", getOrderNote());
 		BindUtils.postGlobalCommand(null, null, "submitNewOrder", args);
 		clearShoppingCart();
-		
 	}
 	
 	@Command
@@ -62,12 +65,16 @@ public class ShoppingCartViewModel {
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
 	public void removeCartitem(@BindingParam("cartItem") CartItem cartItem) {
-		getShoppingCart().remove(cartItem.getProduct().getId());
+		getShoppingCart().remove(cartItem);
 	}
 	
 	@GlobalCommand
-	@NotifyChange("cartItems")
+	@NotifyChange({"cartItems", "shoppingCart"})
 	public void updateShoppingCart() {
 		//no post processing to be done
+	}
+	
+	public String formateMoney(Object item){
+		return "formated String!!!";
 	}
 }

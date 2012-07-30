@@ -13,7 +13,7 @@ import org.zkoss.zul.Window;
 import demo.web.model.UserCredentialManager;
 
 /**
- * @author zkessentials store
+ * @author Ian YT Tsai(zanyking)
  * 
  *         This is the controller for the login view as referenced in index.zul
  * 

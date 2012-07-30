@@ -18,7 +18,7 @@ import demo.web.OverQuantityException;
 import demo.web.model.ProductManager;
 
 /**
- * @author zkessentials store
+ * @author Ian YT Tsai(zanyking)
  * 
  *         This is the controller for the product view as referenced in
  *         index.zul

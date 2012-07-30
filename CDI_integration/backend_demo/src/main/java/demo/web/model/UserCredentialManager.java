@@ -11,7 +11,7 @@ import demo.model.UserDAO;
 import demo.model.bean.User;
 
 /**
- * @author zkessentials store
+ * @author Ian YT Tsai(zanyking)
  * 
  *         This class provides a class which manages user authentication
  * 
