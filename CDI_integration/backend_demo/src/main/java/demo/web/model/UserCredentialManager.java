@@ -27,7 +27,7 @@ public class UserCredentialManager implements Serializable{
 	private User user;
 
 	@Inject
-	@SessionScoped
+	@RequestScoped
 	transient private UserDAO userDao;
 	
 	public synchronized void login(String name, String password) {

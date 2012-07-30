@@ -26,7 +26,7 @@ public class UserOrderManager implements Serializable{
 	private static final long serialVersionUID = 7248193010849518118L;
 
 	@Inject
-	@SessionScoped
+	@RequestScoped
 	transient 
 	private OrderDAO orderDao;
 	
