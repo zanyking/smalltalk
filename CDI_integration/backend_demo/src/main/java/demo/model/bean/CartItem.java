@@ -2,10 +2,14 @@ package demo.model.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,8 +22,14 @@ import javax.persistence.Table;
 @Table(name="cartitems")
 public class CartItem {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="prodId")
 	private Product product;
+	
 	private int amount;
 	private Long userId;
 	private Date createDate = new Date();
@@ -32,22 +42,22 @@ public class CartItem {
 	 */
 	public CartItem(Long userId, Product product) {
 		super();
-		this.product = product;
 		this.userId = userId;
+		this.product = product;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	public Product getProduct() {
 		return product;
 	}
@@ -78,7 +88,12 @@ public class CartItem {
 	public void add(int amount) {
 		this.amount += amount;
 	}
-	public float getSubTotal() {
-		return product.getPrice() * amount;
+	@Override
+	public String toString() {
+		return "CartItem [id=" + id + ", product=" + product + ", amount="
+				+ amount + ", userId=" + userId + ", createDate=" + createDate
+				+ "]";
 	}
+
+	
 }

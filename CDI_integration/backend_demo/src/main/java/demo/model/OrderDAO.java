@@ -11,12 +11,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-import org.seamframework.tx.Transactional;
+import org.jboss.seam.transaction.Transactional;
 
 import demo.model.bean.CartItem;
 import demo.model.bean.Order;
@@ -53,16 +49,7 @@ public class OrderDAO {
 	}
 	
 	public List<Order> findByUser(long userId) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		
-		CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
-
-		Root<Order> r = criteria.from(Order.class);
-		criteria.select(r).where(cb.equal(r.get("userId"), userId));
-		
-		TypedQuery<Order> q = em.createQuery(criteria); 
-		
-		return q.getResultList();
+		return Querys.findEquals(Order.class, "userId", userId, em);
 	}
 
 	
@@ -100,15 +87,7 @@ public class OrderDAO {
 	
 
 	public Order findById(Long orderId) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
-
-		Root<Order> r = criteria.from(Order.class);
-		criteria.select(r).where(cb.equal(r.get("orderId"), orderId));
-		
-		TypedQuery<Order> q = em.createQuery(criteria);
-		
-		return q.getSingleResult();
+		return Querys.findSingle(Order.class, "orderId", orderId, em);
 	}
 	
 	@Transactional
@@ -118,5 +97,5 @@ public class OrderDAO {
 		em.persist(order);
 		return order;
 	}
-
+	
 }

@@ -19,6 +19,7 @@ package demo.model;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -53,5 +54,34 @@ public class Querys {
 		TypedQuery<T> q = em.createQuery(criteria); 
 		
 		return q.getResultList();
+	}
+	
+	/**
+	 * 
+	 * @param <T>
+	 * @param clz
+	 * @param fieldName
+	 * @param value
+	 * @param em
+	 * @return
+	 */
+	public static <T> T findSingle(Class<T> clz, String fieldName, Object value, EntityManager em){
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		
+		CriteriaQuery<T> criteria = cb.createQuery(clz);
+
+		Root<T> r = criteria.from(clz);
+		criteria.select(r).where(cb.equal(r.get(fieldName), value));
+		
+		TypedQuery<T> q = em.createQuery(criteria); 
+		
+		try{
+			return q.getSingleResult();	
+		}catch(NoResultException e){
+			return null;
+		}
+		
+		
 	}
 }

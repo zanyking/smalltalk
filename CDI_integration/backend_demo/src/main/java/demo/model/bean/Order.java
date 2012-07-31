@@ -17,8 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * @author zkessentials store
@@ -50,7 +48,6 @@ public class Order {
 	private Float adjust;
 
 	@OneToMany(mappedBy="orderId",targetEntity=OrderItem.class)
-	@LazyCollection(value = LazyCollectionOption.FALSE)
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 
 	@Temporal(TemporalType.TIMESTAMP)

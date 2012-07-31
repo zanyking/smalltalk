@@ -43,6 +43,10 @@
 			<url>http://download.java.net/maven/2</url>
 		</repository>
 		<repository>
+			<id>JBOSS releases</id>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+		</repository>
+		<repository>
 			<id>zk repository</id>
 			<url>http://mavensync.zkoss.org/maven2</url>
 		</repository>
@@ -188,13 +192,25 @@
 		
 		<!--  Hibernate & JPA  --> 
 
-
+		<!--   -->
   		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>3.6.10.Final</version>
 		</dependency>
-		            
+		    
+		      
+		<dependency>
+		   <groupId>org.jboss.seam.persistence</groupId>
+		   <artifactId>seam-persistence-api</artifactId>
+		   <version>3.0.0.Final</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.jboss.seam.persistence</groupId>
+		   <artifactId>seam-persistence-impl</artifactId>
+		   <version>3.0.0.Final</version>
+		</dependency>
+		
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>

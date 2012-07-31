@@ -8,19 +8,24 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
 
 import demo.model.bean.CartItem;
-import demo.web.ShoppingCart;
+import demo.web.model.ShoppingCart;
 /**
  * 
  * @author Ian Y.T Tsai(zanyking)
  *
  */
+@VariableResolver(org.zkoss.zkplus.cdi.DelegatingVariableResolver.class)
 public class ShoppingCartViewModel {
 	
 	private String orderNote;
 	private CartItem selectedItem;
 	
+	@WireVariable
+	private ShoppingCart shoppingCart;
 	
 	public String getOrderNote() {
 		return orderNote;
@@ -39,11 +44,11 @@ public class ShoppingCartViewModel {
 	}
 
 	public List<CartItem> getCartItems() {
-		return UserUtils.getShoppingCart().getItems();
+		return shoppingCart.getItems();
 	}
 	
 	public ShoppingCart getShoppingCart() {
-		return UserUtils.getShoppingCart();
+		return shoppingCart;
 	}
 	
 	@Command
@@ -59,13 +64,13 @@ public class ShoppingCartViewModel {
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
 	public void clearShoppingCart() {
-		getShoppingCart().clear();
+		shoppingCart.clear();
 	}
 	
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
 	public void removeCartitem(@BindingParam("cartItem") CartItem cartItem) {
-		getShoppingCart().remove(cartItem);
+		shoppingCart.remove(cartItem);
 	}
 	
 	@GlobalCommand

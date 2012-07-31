@@ -22,13 +22,14 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.seamframework.tx.Transactional;
+import org.jboss.seam.transaction.Transactional;
 
 import demo.model.bean.CartItem;
 
@@ -67,17 +68,27 @@ public class CartitemDAO {
 		Root<CartItem> r = criteria.from(CartItem.class);
 		criteria.
 			select(r).
-			where(cb.and(cb.equal(r.get( "userId"), userId), 
-					cb.equal(r.get( "prodId"), prodId))).
+			where(cb.and(
+					cb.equal(r.get( "userId"), userId), 
+					cb.equal(r.get( "product"), prodId))).
 			orderBy(cb.asc(r.get("createDate")));
 		
-		TypedQuery<CartItem> q = em.createQuery(criteria); 
-		return q.getSingleResult();
+		TypedQuery<CartItem> q = em.createQuery(criteria);
+		try{
+			return q.getSingleResult();	
+		}catch(NoResultException e){
+			return null;
+		}
 	}
-	
 	@Transactional
 	public void insertUpdate(CartItem citem){
-		em.persist(citem);
+//		em.getTransaction().begin();
+//		try{
+		System.out.println(">>>> CartitemDAO insertUpdate() em: "+em);
+			em.persist(citem);	
+//		}finally{
+//			em.getTransaction().commit();
+//		}
 	}
 	
 	@Transactional
@@ -86,12 +97,16 @@ public class CartitemDAO {
 	}
 	@Transactional
 	public void clear(Long userId){
-		Query query = em.createQuery("DELETE FROM cartitems c WHERE c.userId = :userId");
+		Query query = em.createQuery("DELETE FROM CartItem c WHERE c.userId = :userId");
 		query.setParameter("userId", userId);
+		System.out.println(">>>> CartitemDAO clear() em: "+em);
 		int deleted = query.executeUpdate();
 		System.out.println(">>>>  DELETE FROM cartitems c WHERE " +
-				"c.userId = "+userId+"  result:"+deleted);
+				"c.userId = "+userId+"  deleted:"+deleted);
 		
 	}
 	
+	public EntityManager getEntityManager(){
+		return em;
+	}
 }

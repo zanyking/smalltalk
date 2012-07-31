@@ -9,6 +9,9 @@ insert into products (id, productname, createDate, price, quantity, available, i
 insert into products (id, productname, createDate, price, quantity, available, imgPath) values (5, 'Milk', CURRENT_TIMESTAMP, 3.1, 71, true, '/image/milk.jpg');
 insert into products (id, productname, createDate, price, quantity, available, imgPath) values (6, 'Coffee Powder', CURRENT_TIMESTAMP, 10.4, 59, true, '/image/coffee.jpg');
 
+delete from cartitems;
+insert into cartitems (id, prodId, userId, amount, createDate) values (1, 1, 1, 3, '2012-07-31 12:00:00');
+
 delete from OrderedItems;
 delete from orders;
 insert into orders (id, userId, status, createDate, description) values (1, 1, 'processing', CURRENT_TIMESTAMP, ' nobody at home in day time');
