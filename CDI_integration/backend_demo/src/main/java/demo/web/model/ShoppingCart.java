@@ -34,6 +34,8 @@ public class ShoppingCart implements Serializable{
 	private UserCredentialManager userCredentialManager;
 	
 	private Long getUserId(){
+		if(!userCredentialManager.isAuthenticated())
+			throw new UnAuthenticatedException();
 		return userCredentialManager.getUser().getId();
 	}
 	public List<CartItem> getItems() {

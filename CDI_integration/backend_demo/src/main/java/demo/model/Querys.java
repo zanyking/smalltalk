@@ -29,8 +29,8 @@ import javax.persistence.criteria.Root;
  * @author Ian Y.T Tsai(zanyking)
  *
  */
-public class Querys {
-
+public final class Querys {
+private Querys(){}
 	
 	/**
 	 * SELECT * FROM [clz] WHERE [fieldName] = [value]
@@ -66,11 +66,6 @@ public class Querys {
 	 * @return
 	 */
 	public static <T> T findSingle(Class<T> clz, String fieldName, Object value, EntityManager em){
-//		try{
-//			
-//		}catch(RuntimeException e){
-//			e.printStackTrace();
-//		}
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
 		CriteriaQuery<T> criteria = cb.createQuery(clz);
@@ -86,4 +81,35 @@ public class Querys {
 			return null;
 		}
 	}
+	/**
+	 * 
+	 * @author Ian Y.T Tsai(zanyking)
+	 *
+	 * @param <T>
+	 */
+	public static interface Invocation<T>{
+		T invoke(EntityManager em);
+	}
+	/**
+	 * 
+	 * @param <T>
+	 * @param inc
+	 * @param em
+	 * @return
+	 */
+	public static <T> T transact(Invocation<T> inc, EntityManager em){
+		T result = null;
+		try{
+			em.getTransaction().begin();
+			result = inc.invoke(em);
+			em.getTransaction().commit();
+		}catch(RuntimeException e){
+			em.getTransaction().rollback();
+			throw e;
+		}
+		return result;
+	}
+	
+	
+	
 }

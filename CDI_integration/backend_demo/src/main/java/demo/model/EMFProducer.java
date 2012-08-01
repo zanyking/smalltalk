@@ -20,7 +20,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
-import org.jboss.seam.solder.core.ExtensionManaged;
 
 /**
  * @author Ian YT Tsai (Zanyking)

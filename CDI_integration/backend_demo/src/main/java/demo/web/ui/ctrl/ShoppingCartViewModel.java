@@ -58,6 +58,7 @@ public class ShoppingCartViewModel {
 		args.put("cartItems", getCartItems());
 		args.put("orderNote", getOrderNote());
 		BindUtils.postGlobalCommand(null, null, "submitNewOrder", args);
+		orderNote = "";
 		clearShoppingCart();
 	}
 	

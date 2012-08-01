@@ -12,8 +12,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.jboss.seam.transaction.Transactional;
 
+import demo.model.Querys.Invocation;
 import demo.model.bean.CartItem;
 import demo.model.bean.Order;
 import demo.model.bean.OrderItem;
@@ -80,22 +80,22 @@ public class OrderDAO {
 		}finally{
 			em.getTransaction().commit();
 		}
-
 		return order;
 	}
-	
-	
 
 	public Order findById(Long orderId) {
 		return Querys.findSingle(Order.class, "orderId", orderId, em);
 	}
 	
-	@Transactional
-	public Order cancelOrder(Order order) {
+	public Order cancelOrder(final Order order) {
 		if(order==null)return null;
 		order.setStatus(CANCELED);
-		em.persist(order);
-		return order;
+		return Querys.transact(new Invocation<Order>() {
+			public Order invoke(EntityManager em) {
+				em.persist(order);
+		        return order;
+			}
+		}, em);
 	}
 	
 }

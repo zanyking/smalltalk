@@ -8,8 +8,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.jboss.seam.transaction.Transactional;
-
+import demo.model.Querys.Invocation;
 import demo.model.bean.Product;
 
 /**
@@ -43,24 +42,33 @@ public class ProductDAO {
 	}
 	
 
-	@Transactional
-	public Product remove(long productId) {
-		Product product = findById(productId);
-        if(product != null) {
-            product.setAvailable(false);
-            em.persist(product);
-        }
-        return product;
+	public Product remove(final long productId) {
+		return Querys.transact(new Invocation<Product>() {
+			public Product invoke(EntityManager em) {
+				Product product = findById(productId);
+		        if(product != null) {
+		            product.setAvailable(false);
+		            em.persist(product);
+		        }
+		        return product;
+			}
+		}, em);
 	}
 
-	@Transactional
-	public Product putOn(long productId) {
-		Product product = findById(productId);
-        if(product != null) {
-            product.setAvailable(true);
-            em.persist(product);
-        }
-        return product;
+	public Product putOn(final long productId) {
+		return Querys.transact(new Invocation<Product>() {
+			public Product invoke(EntityManager em) {
+				Product product = findById(productId);
+		        if(product != null) {
+		            product.setAvailable(true);
+		            em.persist(product);
+		        }
+		        return product;
+			}
+		}, em);
+
+		
+		
 	}
 	
 }

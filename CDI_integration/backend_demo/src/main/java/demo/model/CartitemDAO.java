@@ -29,9 +29,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.jboss.seam.transaction.Transactional;
 
+import demo.model.Querys.Invocation;
 import demo.model.bean.CartItem;
+import demo.model.bean.Product;
 
 /**
  * @author Ian Y.T Tsai(zanyking)
@@ -80,33 +81,42 @@ public class CartitemDAO {
 			return null;
 		}
 	}
-	@Transactional
-	public void insertUpdate(CartItem citem){
-//		em.getTransaction().begin();
-//		try{
-		System.out.println(">>>> CartitemDAO insertUpdate() em: "+em);
-			em.persist(citem);	
-//		}finally{
-//			em.getTransaction().commit();
-//		}
+	
+	
+	
+	public void insertUpdate(final CartItem citem){
+		Querys.transact(new Invocation<CartItem>() {
+			public CartItem invoke(EntityManager em) {
+				
+		        em.persist(citem);
+		        return citem;
+			}
+		}, em);
 	}
 	
-	@Transactional
-	public void delete(CartItem citem){
-		em.remove(citem);
-	}
-	@Transactional
-	public void clear(Long userId){
-		Query query = em.createQuery("DELETE FROM CartItem c WHERE c.userId = :userId");
-		query.setParameter("userId", userId);
-		System.out.println(">>>> CartitemDAO clear() em: "+em);
-		int deleted = query.executeUpdate();
-		System.out.println(">>>>  DELETE FROM cartitems c WHERE " +
-				"c.userId = "+userId+"  deleted:"+deleted);
+	public void delete(final CartItem citem){
+		Querys.transact(new Invocation<CartItem>() {
+			public CartItem invoke(EntityManager em) {
+				
+				em.remove(citem);
+		        return citem;
+			}
+		}, em);
 		
 	}
-	
-	public EntityManager getEntityManager(){
-		return em;
+	public void clear(final Long userId){
+		Querys.transact(new Invocation<CartItem>() {
+			public CartItem invoke(EntityManager em) {
+				Query query = em.createQuery("DELETE FROM CartItem c WHERE c.userId = :userId");
+				query.setParameter("userId", userId);
+				System.out.println(">>>> CartitemDAO clear() em: "+em);
+				int deleted = query.executeUpdate();
+				System.out.println(">>>>  DELETE FROM cartitems c WHERE " +
+						"c.userId = "+userId+"  deleted:"+deleted);
+				
+		        return null;
+			}
+		}, em);
 	}
+	
 }

@@ -20,6 +20,7 @@
 		<class>org.seamframework.tx.EntityTransactionInterceptor</class>
 	</interceptors>
 	 -->
+	 <!-- 
 	<weld:scan>
         <weld:include name="org.jboss.seam.transaction.TransactionInterceptor" />
 	</weld:scan>
@@ -32,5 +33,5 @@
 
 	<t:EntityTransaction>
 		<s:modifies />
-	</t:EntityTransaction>
+	</t:EntityTransaction> -->
 </beans>

@@ -1,10 +1,15 @@
 <?page title="ZK Store"?>
 <?init class="demo.web.ui.WorkbenchInit" ?>
-
+<?xel-method prefix="c" name="formatDate" class="demo.web.ui.Formats"
+   signature="java.lang.String formatDate(java.util.Date)"?>
+   
 <?component name="productOrder" class="demo.web.ui.ctrl.ProductOrder" ?>
 
 <window title="You are using ZK: ${desktop.webApp.version}"
 	border="normal" width="100%" height="900px">
+	<caption>
+		<button label="Log Off" use="demo.web.ui.LogoffButton"/>
+	</caption>
 
 	<borderlayout>
 
@@ -15,8 +20,8 @@
 						<column image="/image/Bullet-10x10.png"
 							align="center" width="100px" />
 						<column label="Name" width="100px" />
-						<column label="Price" width="50px" />
-						<column label="Quantity" width="50px" />
+						<column label="Price" width="50px" align="center"/>
+						<column label="Quantity" width="50px"  align="center"/>
 						<column label="Arrive Date" width="110px" />
 						<column label="operation" />
 					</columns>
@@ -27,7 +32,7 @@
 							<label value="${each.name}" />
 							<label value="${each.price}" />
 							<label value="${each.quantity}" />
-							<label value="${each.createDate}" />
+							<label value="${c:formatDate(each.createDate)} " />
 							<productOrder
 								maximumQuantity="${each.quantity}" product="${each}" />
 						</row>
@@ -60,7 +65,7 @@
 							<listcell label="@load(cartItem.amount)"  />
 							<listcell
 								label="@load(cartItem.product.price * cartItem.amount) 
-								@converter('formattedNumber', format='###,##0.0#')"
+									@converter('formattedNumber', format='###,##0.0#')"
 								style="word-wrap: word-break" />
 							<listcell>
 								<button
@@ -72,7 +77,7 @@
 					<listfoot>
 						<listfooter span="2" id="subtotalFooter"
 							label="@load(vm.shoppingCart.totalPrice) 
-							@converter('formattedNumber', format='###,##0.0#')">
+								@converter('formattedNumber', format='###,##0.0#')">
 						</listfooter>
 						<listfooter>
 							<button id="submitOrderBtn" label="submit"
@@ -113,12 +118,13 @@
 							<template name="model" var="order">
 								<listitem>
 									<listcell
-										label="@load(order) @converter('demo.web.ui.OrderInfoTypeConverter')" />
+										label="@load(order) 
+											@converter('demo.web.ui.OrderInfoTypeConverter')" />
 									<listcell
 										label="@load(order.description)" />
 									<listcell
 										label="@load(order.total) 
-										@converter('formattedNumber', format='###,##0.0#')" />
+											@converter('formattedNumber', format='###,##0.0#')" />
 								</listitem>
 							</template>
 						</listbox>
@@ -146,10 +152,10 @@
 										value="@load(orderItem.quantity)" />
 									<label
 										value="@load(orderItem.price) 
-										@converter('formattedNumber', format='###,##0.0#')" />
+											@converter('formattedNumber', format='###,##0.0#')" />
 									<label
 										value="@load(orderItem) 
-										@converter('demo.web.ui.OrderItemSubTotalTypeConverter')"
+											@converter('demo.web.ui.OrderItemSubTotalTypeConverter')"
 										maxlength="8" />
 								</row>
 							</template>
