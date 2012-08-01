@@ -66,7 +66,11 @@ public class Querys {
 	 * @return
 	 */
 	public static <T> T findSingle(Class<T> clz, String fieldName, Object value, EntityManager em){
-		
+//		try{
+//			
+//		}catch(RuntimeException e){
+//			e.printStackTrace();
+//		}
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
 		CriteriaQuery<T> criteria = cb.createQuery(clz);
@@ -81,7 +85,5 @@ public class Querys {
 		}catch(NoResultException e){
 			return null;
 		}
-		
-		
 	}
 }
