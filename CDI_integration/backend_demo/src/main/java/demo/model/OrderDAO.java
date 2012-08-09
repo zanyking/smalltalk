@@ -70,8 +70,12 @@ public class OrderDAO {
 			for (CartItem item : items) {
 				Product prod = item.getProduct();
 	
-				OrderItem oItem = new OrderItem(null, order.getId(), prod.getId(), prod.getName(),
-						prod.getPrice(), item.getAmount());
+				OrderItem oItem = new OrderItem(null, 
+						order.getId(), 
+						prod.getId(), 
+						prod.getName(),
+						prod.getPrice(), 
+						item.getAmount());
 				
 				em.persist(oItem);
 				System.out.println("oItem persised: "+oItem+" id="+oItem.getId());
@@ -92,7 +96,7 @@ public class OrderDAO {
 		order.setStatus(CANCELED);
 		return Querys.transact(new Invocation<Order>() {
 			public Order invoke(EntityManager em) {
-				em.persist(order);
+				em.merge(order);
 		        return order;
 			}
 		}, em);

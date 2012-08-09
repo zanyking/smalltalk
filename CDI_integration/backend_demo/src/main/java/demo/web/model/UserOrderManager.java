@@ -38,8 +38,8 @@ public class UserOrderManager implements Serializable{
 	}
 
 	
-	public void cancelOrder(Order order) {
-		orderDao.cancelOrder(order);
+	public Order cancelOrder(Order order) {
+		return orderDao.cancelOrder(order);
 	}
 
 

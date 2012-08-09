@@ -20,7 +20,6 @@ import demo.web.model.UserCredentialManager;
  */
 @VariableResolver(org.zkoss.zkplus.cdi.DelegatingVariableResolver.class)
 public class LoginViewCtrl extends SelectorComposer<Window> {
-
 	private static final long serialVersionUID = 5730426085235946339L;
 	
 	@Wire
@@ -29,7 +28,7 @@ public class LoginViewCtrl extends SelectorComposer<Window> {
 	@Wire
 	private Label mesgLbl;
 	
-	@WireVariable("userCredentialManager")
+	@WireVariable
 	private UserCredentialManager userCredentialManager;
 
 	@Override
@@ -39,20 +38,11 @@ public class LoginViewCtrl extends SelectorComposer<Window> {
 			Executions.getCurrent().sendRedirect("index.zul");
 		}
 		nameTxb.setFocus(true);
-
 	}
 	
-	@Listen("onOK=#passwordTxb")
-	public void onOK() {
-		doLogin();
-	}
 	
-	@Listen("onClick=#confirmBtn")
-	public void confirm() {
-		doLogin();
-	}
-
-	private void doLogin() {
+	@Listen("onClick=#confirmBtn; onOK=#passwordTxb")
+	public void doLogin() {
 		userCredentialManager.login(nameTxb.getValue(), passwordTxb.getValue());
 		if (userCredentialManager.isAuthenticated()) {
 			Executions.getCurrent().sendRedirect("index.zul");
@@ -60,5 +50,8 @@ public class LoginViewCtrl extends SelectorComposer<Window> {
 			mesgLbl.setValue("Your User Name or Password is invalid!");
 		}
 	}
-
+	
+	
+	
+	
 }

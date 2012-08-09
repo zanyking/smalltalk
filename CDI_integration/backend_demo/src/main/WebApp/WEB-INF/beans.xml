@@ -13,6 +13,5 @@
         <weld:include name="demo.model.*" />
         <weld:include name="demo.model.bean.*" />
         <weld:include name="demo.web.model.*" />
-        <weld:include name="simple.*" />
 	</weld:scan>
 </beans>
