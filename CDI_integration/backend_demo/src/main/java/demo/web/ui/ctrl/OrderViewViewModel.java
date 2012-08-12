@@ -12,7 +12,11 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import demo.model.bean.CartItem;
 import demo.model.bean.Order;
 import demo.web.model.UserOrderManager;
-
+/**
+ * 
+ * @author Ian Y.T Tsai(zanyking)
+ *
+ */
 @VariableResolver(org.zkoss.zkplus.cdi.DelegatingVariableResolver.class)
 public class OrderViewViewModel  {
 	

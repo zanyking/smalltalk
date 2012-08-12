@@ -1,17 +1,14 @@
 package demo.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import demo.model.bean.User;
 
@@ -28,6 +25,7 @@ public class UserDAO{
 	
 	
 	@Inject
+	@RequestScoped
 	EntityManager em;
 	
 	
@@ -39,29 +37,12 @@ public class UserDAO{
 	}
 
 	public User findById(long id) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		
-		CriteriaQuery<User> criteria = cb.createQuery(User.class);
-		Root<User> r = criteria.from(User.class);
-		criteria.select(r).where(cb.equal(r.get("id"), id));
-		
-		TypedQuery<User> q = em.createQuery(criteria); 
-		User user = q.getSingleResult();
-
-        return user;
+		return Querys.findSingle(User.class, "id", id, em);
 	}
 
 	public User findUserByName(String name) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		
-		CriteriaQuery<User> criteria = cb.createQuery(User.class);
-		Root<User> r = criteria.from(User.class);
-		criteria.select(r).where(cb.equal(r.get("name"), name));
-		
-		TypedQuery<User> q = em.createQuery(criteria); 
-		User user = q.getSingleResult();
-		
-        return user;
+        return Querys.findSingle(User.class, "name", name, em);
 	}
+
 
 }

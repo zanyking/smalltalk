@@ -11,7 +11,7 @@ import demo.model.UserDAO;
 import demo.model.bean.User;
 
 /**
- * @author zkessentials store
+ * @author Ian YT Tsai(zanyking)
  * 
  *         This class provides a class which manages user authentication
  * 
@@ -27,7 +27,7 @@ public class UserCredentialManager implements Serializable{
 	private User user;
 
 	@Inject
-	@SessionScoped
+	@RequestScoped
 	transient private UserDAO userDao;
 	
 	public synchronized void login(String name, String password) {

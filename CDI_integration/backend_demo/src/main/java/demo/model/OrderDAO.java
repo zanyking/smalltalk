@@ -11,13 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-import org.seamframework.tx.Transactional;
 
+import demo.model.Querys.Invocation;
 import demo.model.bean.CartItem;
 import demo.model.bean.Order;
 import demo.model.bean.OrderItem;
@@ -25,7 +21,7 @@ import demo.model.bean.Product;
 import demo.model.bean.User;
 
 /**
- * @author zkessentials store
+ * @author Ian Y.T Tsai(zanyking)
  * 
  *         This class provides functionality to access the {@code Order} model
  *         storage system
@@ -53,16 +49,7 @@ public class OrderDAO {
 	}
 	
 	public List<Order> findByUser(long userId) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		
-		CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
-
-		Root<Order> r = criteria.from(Order.class);
-		criteria.select(r).where(cb.equal(r.get("userId"), userId));
-		
-		TypedQuery<Order> q = em.createQuery(criteria); 
-		
-		return q.getResultList();
+		return Querys.findEquals(Order.class, "userId", userId, em);
 	}
 
 	
@@ -83,8 +70,12 @@ public class OrderDAO {
 			for (CartItem item : items) {
 				Product prod = item.getProduct();
 	
-				OrderItem oItem = new OrderItem(null, order.getId(), prod.getId(), prod.getName(),
-						prod.getPrice(), item.getAmount());
+				OrderItem oItem = new OrderItem(null, 
+						order.getId(), 
+						prod.getId(), 
+						prod.getName(),
+						prod.getPrice(), 
+						item.getAmount());
 				
 				em.persist(oItem);
 				System.out.println("oItem persised: "+oItem+" id="+oItem.getId());
@@ -93,30 +84,22 @@ public class OrderDAO {
 		}finally{
 			em.getTransaction().commit();
 		}
-
 		return order;
 	}
-	
-	
 
 	public Order findById(Long orderId) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
-
-		Root<Order> r = criteria.from(Order.class);
-		criteria.select(r).where(cb.equal(r.get("orderId"), orderId));
-		
-		TypedQuery<Order> q = em.createQuery(criteria);
-		
-		return q.getSingleResult();
+		return Querys.findSingle(Order.class, "orderId", orderId, em);
 	}
 	
-	@Transactional
-	public Order cancelOrder(Order order) {
+	public Order cancelOrder(final Order order) {
 		if(order==null)return null;
 		order.setStatus(CANCELED);
-		em.persist(order);
-		return order;
+		return Querys.transact(new Invocation<Order>() {
+			public Order invoke(EntityManager em) {
+				em.merge(order);
+		        return order;
+			}
+		}, em);
 	}
-
+	
 }

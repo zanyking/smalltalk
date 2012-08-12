@@ -3,12 +3,6 @@
 
 	<persistence-unit name="breakfast" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!-- 
-		<class>demo.model.bean.Order</class>
-		<class>demo.model.bean.OrderItem</class>
-		<class>demo.model.bean.Product</class>
-		<class>demo.model.bean.User</class>
-		 -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
@@ -16,10 +10,6 @@
 			<property name="hibernate.connection.password" value="" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:file:data/store" />
-			<!-- 
-			<property name="hibernate.current_session_context_class" value="thread"/>
-    		<property name="hibernate.query.factory_class" value="org.hibernate.hql.classic.ClassicQueryTranslatorFactory"/>
-    		 -->
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 		</properties>
 	</persistence-unit>

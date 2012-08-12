@@ -15,7 +15,11 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Spinner;
 
 import demo.model.bean.Product;
-
+/**
+ * 
+ * @author Ian Y.T Tsai(zanyking)
+ *
+ */
 public class ProductOrder extends Cell implements IdSpace, AfterCompose {
 
 	/**

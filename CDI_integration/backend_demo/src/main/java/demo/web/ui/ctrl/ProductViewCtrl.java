@@ -16,9 +16,10 @@ import org.zkoss.zul.ListModelList;
 import demo.model.bean.Product;
 import demo.web.OverQuantityException;
 import demo.web.model.ProductManager;
+import demo.web.model.ShoppingCart;
 
 /**
- * @author zkessentials store
+ * @author Ian YT Tsai(zanyking)
  * 
  *         This is the controller for the product view as referenced in
  *         index.zul
@@ -30,6 +31,9 @@ public class ProductViewCtrl extends SelectorComposer<Div> {
 	
 	@WireVariable
 	private ProductManager productManager;
+	
+	@WireVariable
+	private ShoppingCart shoppingCart;
 	/**
 	 * 
 	 */
@@ -58,8 +62,7 @@ public class ProductViewCtrl extends SelectorComposer<Div> {
 		ProductOrder po = (ProductOrder) fe.getTarget();
 
 		try {
-			UserUtils.getShoppingCart()
-					.add(po.getProduct(), po.getQuantity());
+			shoppingCart.add(po.getProduct(), po.getQuantity());
 		} catch (OverQuantityException e) {
 			po.setError(e.getMessage());
 		}

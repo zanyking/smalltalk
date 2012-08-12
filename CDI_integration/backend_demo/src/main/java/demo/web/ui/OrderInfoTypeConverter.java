@@ -26,10 +26,8 @@ public class OrderInfoTypeConverter implements Converter {
 	//load
 	public Object coerceToUi(Object arg0, Component arg1, BindContext arg2) {
 		Order order = (Order) arg0;
-		String info = order.getStatus()
-				+ " : "
-				+ new SimpleDateFormat("yyyy/MM/dd hh:mm").format(order
-						.getCreateDate());
+		String info = order.getStatus() + " : " + 
+			new SimpleDateFormat("yyyy/MM/dd hh:mm").format(order.getCreateDate());
 		return info;
 	}
 

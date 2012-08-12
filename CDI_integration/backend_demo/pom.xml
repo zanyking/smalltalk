@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	
 	<properties>
-		<zk.version>6.5.0-SNAPSHOT</zk.version>
+		<zk.version>6.0.2</zk.version>
 		<zkel.version>1.1.0</zkel.version>
 		<commons-lang.version>2.4</commons-lang.version>
 		<bsh.version>2.0b4</bsh.version>
@@ -14,20 +14,6 @@
 		<commons-io.version>2.1</commons-io.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
 		<servlet.version>2.4</servlet.version>
-		<jetty.version>6.1.16</jetty.version>
-		<jgroovy.version>1.5.6</jgroovy.version>
-		<jruby.version>1.1.2</jruby.version>
-		<jython.version>2.2.1</jython.version>
-		<js.version>1.7R1</js.version>
-		<poi.version>3.7</poi.version>
-		<jxl.version>2.6.12</jxl.version>		
-		<jasperreports.version>4.5.1</jasperreports.version>
-		<jfreechart.version>1.0.14</jfreechart.version>
-		<filters.version>2.0.235</filters.version>
-		<ckez.version>3.3.2_50</ckez.version>
-		<gmapsz.version>2.0.51</gmapsz.version>
-		<timelinez.version>2.3.1_50</timelinez.version>
-		<timeplotz.version>1.1_50</timeplotz.version>
 	</properties>
 	<packaging>war</packaging>
 	<licenses>
@@ -41,6 +27,10 @@
 		<repository>
 			<id>Java Net Repo</id>
 			<url>http://download.java.net/maven/2</url>
+		</repository>
+		<repository>
+			<id>JBOSS releases</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public</url>
 		</repository>
 		<repository>
 			<id>zk repository</id>
@@ -161,51 +151,58 @@
 		   <version>0.8.0</version>
 		</dependency>
 		
-		<!--  for zkbind jsr 303 -->
-		
-		<!-- 
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		    <version>4.0.2.GA</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>1.6.1</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <version>1.6.1</version>
-		</dependency>
-		 <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.0.0.ga</version>
-        </dependency>
-		 -->
+
 		
 		<!--  Hibernate & JPA  --> 
 
-
+		<!--   -->
   		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.10.Final</version>
+			<version>3.5.6-Final</version>
+			<!-- <version>3.6.10.Final</version> -->
 		</dependency>
-		            
+		 <dependency>     
+               <groupId>org.hibernate.javax.persistence</groupId>
+               <artifactId>hibernate-jpa-2.0-api</artifactId>
+               <version>1.0.1.Final</version>
+          </dependency>
+           <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
+        </dependency>
+         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>3.2.0.Final</version>
+        </dependency>
+        
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
+
+		
+		 <!-- 
+		<dependency>
+		   <groupId>org.jboss.seam.persistence</groupId>
+		   <artifactId>seam-persistence-api</artifactId>
+		   <version>3.0.0.Final</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.jboss.seam.persistence</groupId>
+		   <artifactId>seam-persistence-impl</artifactId>
+		   <version>3.0.0.Final</version>
+		</dependency>		--> 
+		<dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
             <version>1.1</version>
         </dependency>
-		<!-- 
+
+        <!--
         <dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator</artifactId>
@@ -247,7 +244,16 @@
 			<version>1.1.8.Final</version>
 			<optional>true</optional>
 		</dependency>
- 		
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.6.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>1.6.1</version>
+		</dependency>
 
 	</dependencies>
 	<build>

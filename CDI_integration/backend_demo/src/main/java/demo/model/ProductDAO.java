@@ -7,13 +7,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-import org.seamframework.tx.Transactional;
-
+import demo.model.Querys.Invocation;
 import demo.model.bean.Product;
 
 /**
@@ -38,51 +33,43 @@ public class ProductDAO {
 	}
 
 	public List<Product> findAllAvailable() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		
-		CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
-		Root<Product> r = criteria.from(Product.class);
-		criteria.select(r).where(cb.equal(r.get("available"), true));
-		
-		TypedQuery<Product> q = em.createQuery(criteria); 
-        List<Product> products = q.getResultList();
-        return products;
+        return Querys.findEquals(Product.class, "available", true, em);
 	}
 	
 	
 	private Product findById(long productId){
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		
-		CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
-		Root<Product> r = criteria.from(Product.class);
-		criteria.select(r).where(cb.equal(r.get("id"), productId));
-		
-		TypedQuery<Product> q = em.createQuery(criteria); 
-		Product product = q.getSingleResult();
-		
-		return product;
+		return Querys.findSingle(Product.class, "id", productId, em);
 	}
 	
 
-	@Transactional
-	public Product remove(long productId) {
-		Product product = findById(productId);
-        if(product != null) {
-            product.setAvailable(false);
-            em.persist(product);
-        }
-        return product;
+	public Product remove(final long productId) {
+		return Querys.transact(new Invocation<Product>() {
+			public Product invoke(EntityManager em) {
+				Product product = findById(productId);
+		        if(product != null) {
+		            product.setAvailable(false);
+		            em.persist(product);
+		        }
+		        return product;
+			}
+		}, em);
 	}
 
-	@Transactional
-	public Product putOn(long productId) {
-		Product product = findById(productId);
-        if(product != null) {
-            product.setAvailable(true);
-            em.persist(product);
-        }
-        return product;
-	}
+	public Product putOn(final long productId) {
+		return Querys.transact(new Invocation<Product>() {
+			public Product invoke(EntityManager em) {
+				Product product = findById(productId);
+		        if(product != null) {
+		            product.setAvailable(true);
+		            em.persist(product);
+		        }
+		        return product;
+			}
+		}, em);
 
+		
+		
+	}
+	
 }
 
