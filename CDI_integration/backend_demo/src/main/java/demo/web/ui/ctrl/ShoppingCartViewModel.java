@@ -58,13 +58,13 @@ public class ShoppingCartViewModel {
 		args.put("cartItems", getCartItems());
 		args.put("orderNote", getOrderNote());
 		BindUtils.postGlobalCommand(null, null, "submitNewOrder", args);
-		orderNote = "";
 		clearShoppingCart();
 	}
 	
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
 	public void clearShoppingCart() {
+		orderNote = "";
 		shoppingCart.clear();
 	}
 	
@@ -80,7 +80,5 @@ public class ShoppingCartViewModel {
 		//no post processing to be done
 	}
 	
-	public String formateMoney(Object item){
-		return "formated String!!!";
-	}
+
 }

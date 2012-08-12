@@ -48,7 +48,6 @@ public class OrderViewViewModel  {
 		setSelectedItem(null);
 	}
 	
-	
 	@GlobalCommand
 	@NotifyChange("orders")
 	public void submitNewOrder( 

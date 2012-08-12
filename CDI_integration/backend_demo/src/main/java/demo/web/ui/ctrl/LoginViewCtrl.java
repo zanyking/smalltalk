@@ -24,22 +24,12 @@ public class LoginViewCtrl extends SelectorComposer<Window> {
 	
 	@Wire
 	private Textbox nameTxb, passwordTxb;
-	
 	@Wire
 	private Label mesgLbl;
 	
 	@WireVariable
 	private UserCredentialManager userCredentialManager;
 
-	@Override
-	public void doAfterCompose(Window comp) throws Exception {
-		super.doAfterCompose(comp);
-		if (userCredentialManager.isAuthenticated()) {
-			Executions.getCurrent().sendRedirect("index.zul");
-		}
-		nameTxb.setFocus(true);
-	}
-	
 	
 	@Listen("onClick=#confirmBtn; onOK=#passwordTxb")
 	public void doLogin() {
@@ -51,7 +41,14 @@ public class LoginViewCtrl extends SelectorComposer<Window> {
 		}
 	}
 	
-	
+	@Override
+	public void doAfterCompose(Window comp) throws Exception {
+		super.doAfterCompose(comp);
+		if (userCredentialManager.isAuthenticated()) {
+			Executions.getCurrent().sendRedirect("index.zul");
+		}
+		nameTxb.setFocus(true);
+	}
 	
 	
 }

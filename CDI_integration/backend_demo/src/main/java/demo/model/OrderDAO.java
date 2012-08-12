@@ -30,12 +30,8 @@ import demo.model.bean.User;
 @Dependent
 @Named(value = "orderDao")
 public class OrderDAO {
-
-
 	@Inject
 	EntityManager em;
-	
-	
 	@SuppressWarnings("unchecked")
 	public List<Order> findAll() {
 		Query query = em.createQuery("from orders");

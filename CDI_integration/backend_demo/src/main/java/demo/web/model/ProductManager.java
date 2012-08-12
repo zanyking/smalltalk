@@ -30,7 +30,4 @@ public class ProductManager {
 		return productDao.findAllAvailable();
 	}
 	
-	
-	
-	
 }
