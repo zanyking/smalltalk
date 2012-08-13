@@ -2,7 +2,6 @@ package demo.web.model;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,8 +26,7 @@ public class UserCredentialManager implements Serializable{
 	private User user;
 
 	@Inject
-	@RequestScoped
-	transient private UserDAO userDao;
+	private UserDAO userDao;
 	
 	public synchronized void login(String name, String password) {
 		User tempUser = userDao.findUserByName(name);

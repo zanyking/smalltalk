@@ -19,6 +19,7 @@ package demo.model;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -38,7 +39,7 @@ import demo.model.bean.Product;
  * @author Ian Y.T Tsai(zanyking)
  *
  */
-@Dependent
+@RequestScoped
 @Named(value = "cartitemDao")
 public class CartitemDAO {
 

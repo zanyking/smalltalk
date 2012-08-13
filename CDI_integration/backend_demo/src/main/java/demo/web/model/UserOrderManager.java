@@ -3,11 +3,9 @@
  */
 package demo.web.model;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,14 +18,11 @@ import demo.model.bean.Order;
  *
  */
 @Named("userOrderManager")
-@SessionScoped
-public class UserOrderManager implements Serializable{
+@ApplicationScoped
+public class UserOrderManager{
 
-	private static final long serialVersionUID = 7248193010849518118L;
 
 	@Inject
-	@RequestScoped
-	transient 
 	private OrderDAO orderDao;
 	
 	@Inject

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ import demo.model.bean.User;
  *         storage system
  * 
  */
-@Dependent
+@RequestScoped
 @Named(value = "orderDao")
 public class OrderDAO {
 	@Inject

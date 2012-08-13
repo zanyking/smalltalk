@@ -21,18 +21,17 @@ import demo.web.model.ShoppingCart;
 @VariableResolver(org.zkoss.zkplus.cdi.DelegatingVariableResolver.class)
 public class ShoppingCartViewModel {
 	
-	private String orderNote;
 	private CartItem selectedItem;
 	
 	@WireVariable
 	private ShoppingCart shoppingCart;
 	
 	public String getOrderNote() {
-		return orderNote;
+		return shoppingCart.getDescription();
 	}
 
 	public void setOrderNote(String orderNote) {
-		this.orderNote = orderNote;
+		shoppingCart.setDescription(orderNote);
 	}
 
 	public CartItem getSelectedItem() {
@@ -64,7 +63,7 @@ public class ShoppingCartViewModel {
 	@Command
 	@NotifyChange({"cartItems", "shoppingCart"})
 	public void clearShoppingCart() {
-		orderNote = "";
+		setOrderNote("");
 		shoppingCart.clear();
 	}
 	
