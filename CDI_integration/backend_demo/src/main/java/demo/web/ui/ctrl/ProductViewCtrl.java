@@ -16,7 +16,7 @@ import org.zkoss.zul.ListModelList;
 import demo.model.bean.Product;
 import demo.web.OverQuantityException;
 import demo.web.model.ProductManager;
-import demo.web.model.ShoppingCart;
+import demo.web.model.ShoppingCartSessionImpl;
 
 /**
  * @author Ian YT Tsai(zanyking)
@@ -33,7 +33,7 @@ public class ProductViewCtrl extends SelectorComposer<Div> {
 	private ProductManager productManager;
 	
 	@WireVariable
-	private ShoppingCart shoppingCart;
+	private ShoppingCartSessionImpl shoppingCart;
 	/**
 	 * 
 	 */

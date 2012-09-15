@@ -1,0 +1,5 @@
+<zk>
+	<spinner id="spnQuantity" constraint="min 1 max ${arg.maximumQuantity}" value="1"/>
+	<button id="btnAdd" label="add" image="/image/ShoppingCart-16x16.png" />
+	<label id="lblError" />
+</zk>

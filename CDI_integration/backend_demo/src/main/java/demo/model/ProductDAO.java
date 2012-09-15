@@ -2,7 +2,7 @@ package demo.model;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -18,7 +18,7 @@ import demo.model.bean.Product;
  *         storage system
  * 
  */
-@Dependent
+@RequestScoped
 @Named(value = "productDao")
 public class ProductDAO {
 

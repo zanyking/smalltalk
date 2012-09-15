@@ -18,7 +18,6 @@ package demo.model;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,10 +29,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
 import demo.model.Querys.Invocation;
 import demo.model.bean.CartItem;
-import demo.model.bean.Product;
 
 /**
  * @author Ian Y.T Tsai(zanyking)
