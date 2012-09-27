@@ -25,6 +25,13 @@ public class ProductDAO {
 	@Inject
 	EntityManager em;
 	
+	public ProductDAO(){}
+	
+	
+	public ProductDAO(EntityManager em) {
+		this.em = em;
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
         Query query = em.createQuery("from products");

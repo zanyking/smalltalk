@@ -14,8 +14,8 @@
         <weld:include name="demo.model.bean.*" />
         <weld:include name="demo.web.model.*" />
 	</weld:scan>
-	
+	<!-- 
 	<alternatives>
         <class>demo.web.model.ShoppingCartSessionImpl</class>
-    </alternatives>
+    </alternatives> -->
 </beans>

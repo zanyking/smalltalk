@@ -23,6 +23,7 @@ import demo.web.OverQuantityException;
  */
 @Named("shoppingCart")
 @SessionScoped
+@Alternative
 public class ShoppingCartSessionImpl implements ShoppingCart, Serializable {
 	
 	private static final long serialVersionUID = 464821961483850854L;

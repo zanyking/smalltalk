@@ -21,6 +21,7 @@
 		<spring.integration.version>2.1.2.RELEASE</spring.integration.version>
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<log4j.version>1.2.16</log4j.version>
+		<slf4j.version>1.5.8</slf4j.version>
 		<junit.version>4.10</junit.version>
 	</properties>
 
@@ -101,28 +102,42 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
+			<artifactId>spring-web</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
-		<!-- Spring Integration -->
-
 		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-core</artifactId>
-			<version>${spring.integration.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-twitter</artifactId>
-			<version>${spring.integration.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		
 		<!-- ZK -->
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -193,11 +208,6 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang.version}</version>
-		</dependency>
-		<dependency>
-		   <groupId>org.zkoss.composite</groupId>
-		   <artifactId>zkcomposite</artifactId>
-		   <version>0.8.0</version>
 		</dependency>
 
 	<!--  Hibernate & JPA  --> 
@@ -272,13 +282,21 @@
 		
 
 		<!-- Logging -->
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 		<!-- Servlet -->
 
 		<dependency>
@@ -287,7 +305,7 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
@@ -297,6 +315,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 </project>

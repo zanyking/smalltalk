@@ -1,0 +1,9 @@
+<?variable-resolver class="org.zkoss.zkplus.cdi.DelegatingVariableResolver" ?>
+<zk>
+<label value="${empty hello ? hello.sayHello('Ian') : hello.sayHello('dennis')}"/>
+
+<zscript><![CDATA[
+	System.out.println("befor after Compose of mvvm_simple.zul");
+]]></zscript>
+
+</zk>

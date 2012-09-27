@@ -25,17 +25,38 @@ Copyright (C) 2004 Potix Corporation. All Rights Reserved.
 		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
 	</listener>
 	
-	    <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- ***** Spring Settings ***** -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:META-INF/spring/integration/spring-integration-context.xml</param-value>
+        <param-value>classpath:META-INF/spring/app-context.xml</param-value>
     </context-param>
 
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
+    	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+    <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 	
+    <!-- 2012.09.24-->
+	<filter>
+	    <filter-name>oemInViewFilter</filter-name>
+	    <filter-class>
+	        org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter
+	    </filter-class>
+	    <init-param>
+	        <param-name>entityManagerFactoryBeanName</param-name>
+	        <param-value>emf</param-value>
+	    </init-param>
+	</filter>
+
+	<filter-mapping>
+	    <filter-name>oemInViewFilter</filter-name>
+	    <url-pattern>*</url-pattern>
+	</filter-mapping>
+ 	
+ 	
 	
 	<servlet>
 		<description>ZK loader for ZUML pages</description>
