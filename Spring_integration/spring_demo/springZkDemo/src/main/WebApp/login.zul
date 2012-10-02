@@ -3,7 +3,6 @@
 	title="You are using: ${desktop.webApp.version}"
 	apply="org.zkoss.springdemo.web.ui.ctrl.LoginViewCtrl" mode="overlapped"
 	position="center,center">
-
 	<grid>
 		<rows>
 			<row>
