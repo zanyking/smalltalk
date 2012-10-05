@@ -2,10 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:component-scan base-package="org.zkoss.springdemo.model, org.zkoss.springdemo.web.model" />
@@ -21,24 +23,25 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 	
 	
-	<bean id="productManager" 
-		class="org.zkoss.springdemo.web.model.ProductManager"
-		scope="session">
+	<bean id="productManager" scope="application"
+		class="org.zkoss.springdemo.web.model.ProductManager">
 		<property name="productDao" ref="productDAO" />
 	</bean>
-	<bean id="userCredentialManager" 
-		class="org.zkoss.springdemo.web.model.UserCredentialManager"
-		scope="session">
+	
+	<bean id="userCredentialManager" scope="session"
+		class="org.zkoss.springdemo.web.model.UserCredentialManager">
+		<aop:scoped-proxy/>
 		<property name="UserDao" ref="userDAO" />
 	</bean>
-	<bean id="shoppingCart" 
-		class="org.zkoss.springdemo.web.model.ShoppingCartSessionImpl"
-		scope="session">
+	
+	<bean id="shoppingCart" scope="session"
+		class="org.zkoss.springdemo.web.model.ShoppingCartSessionImpl">
+		<aop:scoped-proxy/>
 		<property name="userCredentialManager" ref="userCredentialManager" />
 	</bean>
-	<bean id="userOrderManager" 
-		class="org.zkoss.springdemo.web.model.UserOrderManager"
-		scope="session">
+	
+	<bean id="userOrderManager" scope="session"
+		class="org.zkoss.springdemo.web.model.UserOrderManager">
 		<property name="orderDao" ref="orderDAO" />
 		<property name="userCredentialManager" ref="userCredentialManager" />
 	</bean>

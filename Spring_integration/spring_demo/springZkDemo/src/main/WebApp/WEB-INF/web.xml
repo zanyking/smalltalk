@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- web.xml
-	Purpose:
-		
-	Description:
-		
-	History:
-		Wed Dec 29 12:13:00     2004, Created by tomyeh
-
-Copyright (C) 2004 Potix Corporation. All Rights Reserved.
--->
+<!-- web.xml Purpose: Description: History: Wed Dec 29 12:13:00 2004, Created 
+	by tomyeh Copyright (C) 2004 Potix Corporation. All Rights Reserved. -->
 
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"> 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
 	<description><![CDATA[Java Two]]></description>
 	<display-name>ZK-Java-TWO</display-name>
@@ -24,40 +16,39 @@ Copyright (C) 2004 Potix Corporation. All Rights Reserved.
 		<description>ZK listener for session cleanup</description>
 		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
 	</listener>
-	
-	<!-- ***** Spring Settings ***** -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:META-INF/spring/app-context.xml</param-value>
-    </context-param>
 
-    <!-- Creates the Spring Container shared by all Servlets and Filters -->
-    <listener>
-    	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	<!-- ***** Declares where the Spring application context setting is ***** -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:META-INF/spring/app-context.xml</param-value>
+	</context-param>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-	
-    <!-- 2012.09.24-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 2012.09.24 -->
 	<filter>
-	    <filter-name>oemInViewFilter</filter-name>
-	    <filter-class>
-	        org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter
-	    </filter-class>
-	    <init-param>
-	        <param-name>entityManagerFactoryBeanName</param-name>
-	        <param-value>emf</param-value>
-	    </init-param>
+		<filter-name>oemInViewFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+		<init-param>
+			<param-name>entityManagerFactoryBeanName</param-name>
+			<param-value>emf</param-value>
+		</init-param>
 	</filter>
 
 	<filter-mapping>
-	    <filter-name>oemInViewFilter</filter-name>
-	    <url-pattern>*</url-pattern>
+		<filter-name>oemInViewFilter</filter-name>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
- 	
- 	
-	
+
+
+
 	<servlet>
 		<description>ZK loader for ZUML pages</description>
 		<servlet-name>zkLoader</servlet-name>
