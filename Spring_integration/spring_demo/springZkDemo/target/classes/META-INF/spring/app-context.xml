@@ -36,7 +36,6 @@
 	
 	<bean id="shoppingCart" scope="session"
 		class="org.zkoss.springdemo.web.model.ShoppingCartSessionImpl">
-		<aop:scoped-proxy/>
 		<property name="userCredentialManager" ref="userCredentialManager" />
 	</bean>
 	

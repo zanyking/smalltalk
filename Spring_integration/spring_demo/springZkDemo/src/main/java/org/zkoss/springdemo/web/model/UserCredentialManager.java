@@ -25,7 +25,6 @@ public class UserCredentialManager implements Serializable{
 	public UserDAO getUserDao() {
 		return userDao;
 	}
-
 	public void setUserDao(UserDAO userDao) {
 		this.userDao = userDao;
 	}

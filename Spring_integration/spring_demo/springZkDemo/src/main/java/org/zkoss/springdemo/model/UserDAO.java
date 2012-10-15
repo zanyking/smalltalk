@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Repository;
 import org.zkoss.springdemo.model.bean.User;
 
@@ -19,7 +20,7 @@ import org.zkoss.springdemo.model.bean.User;
  * 
  */
 @Repository
-@Scope("request")
+@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class UserDAO{
 	
 	@PersistenceContext

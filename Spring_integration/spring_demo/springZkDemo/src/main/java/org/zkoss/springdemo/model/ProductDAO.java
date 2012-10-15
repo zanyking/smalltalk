@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,17 +15,15 @@ import org.zkoss.springdemo.model.bean.Product;
 
 
 /**
- * @author zkessentials store
- * 
- *         This class provides functionality to access the {@code Product} model
- *         storage system
+ * @author Ian YT Tsai(Zanyking)
+ * This class provides functionality to access the {@code Product} model storage system
  * 
  */
 @Repository
-@Scope("request")
+@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class ProductDAO {
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 	
 	public ProductDAO(){}
 	
@@ -41,6 +40,7 @@ public class ProductDAO {
 	}
 
 	public List<Product> findAllAvailable() {
+		System.out.println("ProductDAO's EM:"+em);
         return Querys.findEquals(Product.class, "available", true, em);
 	}
 	
