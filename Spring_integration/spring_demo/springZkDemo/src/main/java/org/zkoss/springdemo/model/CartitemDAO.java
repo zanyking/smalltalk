@@ -40,7 +40,7 @@ import org.zkoss.springdemo.model.bean.CartItem;
  *
  */
 @Repository
-@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
+//@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class CartitemDAO {
 
 	@PersistenceContext

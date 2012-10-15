@@ -20,7 +20,7 @@ import org.zkoss.springdemo.model.bean.User;
  * 
  */
 @Repository
-@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
+//@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class UserDAO{
 	
 	@PersistenceContext

@@ -28,7 +28,7 @@ import org.zkoss.springdemo.model.bean.User;
  *         storage system
  */
 @Repository
-@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
+//@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class OrderDAO {
 	@PersistenceContext
 	EntityManager em;

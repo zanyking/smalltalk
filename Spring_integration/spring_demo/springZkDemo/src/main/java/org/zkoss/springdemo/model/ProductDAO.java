@@ -20,7 +20,7 @@ import org.zkoss.springdemo.model.bean.Product;
  * 
  */
 @Repository
-@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
+//@Scope(value="request", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class ProductDAO {
 	@PersistenceContext
 	private EntityManager em;
