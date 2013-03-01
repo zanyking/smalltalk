@@ -1,6 +1,6 @@
 <?page title="ZK + Spring Security Integration demo"?>
-<?taglib uri="http://www.zkoss.org/demo/integration/security" prefix="sec"?>
-
+<?taglib uri="/WEB-INF/security.tld" prefix="sec"?>
+ 
 
 <zk>
 	<window title="Articles" border="normal" width="1000px"

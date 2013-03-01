@@ -15,8 +15,12 @@ public class ArticleServiceImpl implements ArticleService {
 
 	private ArticleDao articleDao;
 	
-	public ArticleServiceImpl(ArticleDao articleDao) {
-		super();
+
+	public ArticleDao getArticleDao() {
+		return articleDao;
+	}
+
+	public void setArticleDao(ArticleDao articleDao) {
 		this.articleDao = articleDao;
 	}
 

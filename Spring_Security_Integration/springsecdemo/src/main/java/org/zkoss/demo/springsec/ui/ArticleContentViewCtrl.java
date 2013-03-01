@@ -4,13 +4,8 @@
 package org.zkoss.demo.springsec.ui;
 
 import java.util.Date;
-import java.util.HashMap;
 
-import javax.persistence.Id;
-
-import org.hsqldb.User;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.annotation.Secured;
 import org.zkoss.demo.springsec.SecurityUtil;
 import org.zkoss.demo.springsec.model.Article;
 import org.zkoss.demo.springsec.model.ArticleService;
@@ -25,7 +20,6 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
-import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Html;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
@@ -96,7 +90,6 @@ public class ArticleContentViewCtrl extends SelectorComposer<Component> {
 	public void delete(){
 		SecurityUtil.assertAll("ROLE_EDITOR");
 		// for demonstrate Spring bean's direct Security check in ZK Ajax Request we comment out this line.
-		//SecurityUtil.assertAny("ROLE_EDITOR");
 		System.out.println(">>>>>>> Delete");
 		// Spring Security will check if user has ROLE_EDITOR, 
 		// this is the last defense if any attempted access without further role. 

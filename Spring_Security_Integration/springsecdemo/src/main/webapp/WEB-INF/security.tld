@@ -3,8 +3,13 @@
 <taglib>
 	<uri>http://www.zkoss.org/demo/integration/security</uri>
 	<description>
-		Methods and actions for ZK + Spring Security
+	Methods and actions for ZK + Spring Security
 	</description>
+
+	<!--           -->
+	<!-- Functions -->
+	<!--           -->
+
 
 	<function>
 		<name>isNoneGranted</name>

@@ -12,24 +12,15 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<!-- - Enable the @Secured annotation to secure service layer methods -->
-	<!-- 
-		<global-method-security secured-annotations="enabled"
-			jsr250-annotations="enabled"  
-			pre-post-annotations="enabled" />
-	 
-	<global-method-security secured-annotations="enabled" 
-		pre-post-annotations="enabled" />
- -->
- 
+
 	<http auto-config="true">
 		<port-mappings>
 			<port-mapping http="8080" https="8443"/>
 		</port-mappings>
 		
 		<intercept-url pattern="/zkau/**" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="any"/>
-		<intercept-url pattern="/login.zul" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https" />
 		<intercept-url pattern="/newArticle.zul" access="ROLE_USER" requires-channel="https" />
+		<intercept-url pattern="/login.zul" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https" />
 		<intercept-url pattern="/j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https" />
 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="any" />
 		

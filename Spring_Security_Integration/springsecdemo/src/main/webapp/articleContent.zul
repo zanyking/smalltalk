@@ -1,5 +1,5 @@
 <?page title="Article Content - ZK + Spring Security Integration"?>
-<?taglib uri="http://www.zkoss.org/demo/integration/security" prefix="sec"?>
+<?taglib uri="/WEB-INF/security.tld" prefix="sec"?>
 <window title="User: ${empty execution.userPrincipal.name? 
 	'anonymous' : execution.userPrincipal.name }" 
 	border="normal" width="1000px" 
